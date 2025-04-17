@@ -19,6 +19,7 @@ const App: React.FC = () => {
     { name: 'PHP' },
     { name: 'HTML' },
     { name: 'CSS' },
+    { name: 'Typescript' },
   ]
 
   const projects: Project[] = [
@@ -26,7 +27,7 @@ const App: React.FC = () => {
       name: 'Structify',
       description: 'A Web-Based Gamified Interactive Web-Based Application for Data Structures and Algorithms Learning.',
       link: '#',
-      languages: ['Ionic Framework', 'HTML', 'CSS'],
+      languages: ['Ionic Framework', 'HTML', 'CSS','Typescript'],
     },
     {
       name: 'bRAEnQUEST',
@@ -75,14 +76,15 @@ const App: React.FC = () => {
   const languageIcons: { [key: string]: JSX.Element } = {
     JavaScript: <DiJavascript1 className="text-xs md:text-sm" />,
     React: <DiReact className="text-xs md:text-sm" />,
-    'C#': <DiDotnet className="text-xs md:text-sm" />, // Updated key to match projects
+    'C#': <DiDotnet className="text-xs md:text-sm" />, 
     Ionic: <DiCode className="text-xs md:text-sm" />,
     Java: <DiJava className="text-xs md:text-sm" />,
     Python: <DiPython className="text-xs md:text-sm" />,
-    Unity: <DiCode className="text-xs md:text-sm" />, // Fallback for Unity (no DiUnity3D in react-icons)
+    Unity: <DiCode className="text-xs md:text-sm" />, 
     PHP: <DiPhp className="text-xs md:text-sm" />,
     HTML: <DiHtml5 className="text-xs md:text-sm" />,
     CSS: <DiCss3 className="text-xs md:text-sm" />,
+    TypeScript: <DiCode className="text-xs md:text-sm" />,
   }
 
   return (
