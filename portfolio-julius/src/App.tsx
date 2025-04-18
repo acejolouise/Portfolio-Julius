@@ -20,6 +20,16 @@ const App: React.FC = () => {
     { name: 'HTML' },
     { name: 'CSS' },
     { name: 'Typescript' },
+    { name: 'MySQL' },
+    { name: 'Firebase' },
+    { name: 'Figma' },
+    { name: 'Game Development' },
+    { name: 'Web Development' },
+    { name: 'Mobile Development' },
+    { name: 'Problem Solving' },
+    { name: 'Agile Methodologies' },
+    { name: 'Team Collaboration' },
+    { name: 'CTF' },
   ]
 
   const projects: Project[] = [
