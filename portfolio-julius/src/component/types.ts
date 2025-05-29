@@ -7,4 +7,6 @@ export interface Skill {
     description: string;
     link: string;
     languages?: string[];
+    image: string;
+    images?: string[];
   }
