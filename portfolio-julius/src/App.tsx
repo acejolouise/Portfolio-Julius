@@ -1,4 +1,4 @@
-import { Skill, Project } from './component/types'
+import { Project } from './component/types'
 import React from 'react'
 import profilePic from './assets/pfp.jpg'
 import { FaLinkedin, FaGithub, FaDownload } from 'react-icons/fa'
@@ -386,6 +386,58 @@ I'm a passionate Information Technology student with a strong interest in softwa
             ))}
           </div>
         </motion.section>
+
+        <motion.footer
+          className="mt-16 pb-8 border-t border-gray-800 pt-8"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                delayChildren: 0.2,
+                staggerChildren: 0.1
+              }
+            }
+          }}
+        >
+          <motion.div 
+            className="text-center"
+            variants={fadeInUp}
+          >
+            <p className="text-gray-400 mb-3">© {new Date().getFullYear()} Julius Salinas. All rights reserved.</p>
+            <div className="flex justify-center gap-6 mb-4">
+              <motion.a
+                whileHover={{ scale: 1.1, y: -3 }}
+                whileTap={{ scale: 0.95 }}
+                href="https://linkedin.com/in/julius-louise-salinas"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-blue-500 transition-colors"
+              >
+                <FaLinkedin className="text-xl" />
+              </motion.a>
+              <motion.a
+                whileHover={{ scale: 1.1, y: -3 }}
+                whileTap={{ scale: 0.95 }}
+                href="https://github.com/acejolouise"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                <FaGithub className="text-xl" />
+              </motion.a>
+            </div>
+            <motion.p 
+              className="text-sm text-gray-500"
+              variants={fadeInUp}
+            >
+              Built with React, Tailwind CSS, and Framer Motion
+            </motion.p>
+          </motion.div>
+        </motion.footer>
       </div>
     </div>
   )
