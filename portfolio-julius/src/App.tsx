@@ -260,7 +260,7 @@ const App: React.FC = () => {
           >
             <span className="bg-gradient-to-r from-blue-400 to-blue-500 bg-clip-text text-transparent font-medium">
               Full Stack Developer
-            </span> | AI/ML Enthusiast | Game Developer | Web & App Developer
+            </span> | AI/ML Enthusiast | Game Developer 
           </motion.p>
           <motion.div 
             className="mt-4 flex flex-wrap justify-center gap-3 sm:gap-4 px-2"
