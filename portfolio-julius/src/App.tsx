@@ -252,7 +252,7 @@ const App: React.FC = () => {
             Julius Salinas
           </motion.h1>
           
-          <motion.p z
+          <motion.p 
             className="text-base sm:text-lg md:text-xl text-gray-300 max-w-lg mx-auto px-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -260,7 +260,7 @@ const App: React.FC = () => {
           >
             <span className="bg-gradient-to-r from-blue-400 to-blue-500 bg-clip-text text-transparent font-medium">
               Full Stack Developer
-            </span> | AI/ML Enthusiast | Game Developer 
+            </span> | AI/ML Enthusiast | Game Developer
           </motion.p>
           <motion.div 
             className="mt-4 flex flex-wrap justify-center gap-3 sm:gap-4 px-2"
