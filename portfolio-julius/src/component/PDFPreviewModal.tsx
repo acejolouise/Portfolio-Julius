@@ -45,7 +45,7 @@ const PDFPreviewModal: React.FC<PDFPreviewModalProps> = ({ isOpen, onClose, pdfU
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
           >
             <div className="flex justify-between items-center p-4 border-b border-gray-700">
-              <h3 className="text-lg font-semibold text-white">Resume Preview</h3>
+              <h3 className="text-lg font-semibold text-white">CV Preview</h3>
               <div className="flex gap-3">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
