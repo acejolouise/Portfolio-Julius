@@ -1,11 +1,12 @@
 import { Project } from './component/types'
-import React from 'react'
+import React, { useState } from 'react'
 import profilePic from './assets/pfp.jpg'
-import { FaLinkedin, FaGithub, FaDownload } from 'react-icons/fa'
+import { FaLinkedin, FaGithub, FaEye } from 'react-icons/fa'
 import { DiJavascript1, DiReact, DiDotnet, DiJava, DiPython, DiCode, DiPhp, DiHtml5, DiCss3 } from 'react-icons/di'
 import ProjectSlideshow from './component/ProjectSlideshow'
 import ScrollProgressIndicator from './component/ScrollProgressIndicator'
-import cvform from './assets/Julius Salinas - CV 1.1.pdf'
+import PDFPreviewModal from './component/PDFPreviewModal'
+import cvform from './assets/CV_Julius_Salinas.pdf'
 import { motion } from 'framer-motion'
 import Tilt from 'react-parallax-tilt'
 import AnimatedBackground from './component/AnimatedBackground'
@@ -39,6 +40,8 @@ import structify5 from './assets/screenshot projects/structify5.png'
 
 
 const App: React.FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
   const skillCategories = [
     {
       category: 'Programming Languages',
@@ -163,13 +166,7 @@ const App: React.FC = () => {
         pcracebuilders3
       ]
     },
-    {
-      name: 'Dice Roller',
-      description: 'A mobile application that can roll d4, d20 etc.',
-      link: 'https://github.com/acejolouise',
-      languages: ['React-Native', 'Android Studio', 'TypeScript', 'HTML/CSS'],
-      image: 'https://via.placeholder.com/300x200?text=Dice+Roller',
-    },
+   
   ]
 
   const languageIcons: Record<string, React.ReactNode> = {
@@ -201,18 +198,18 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100 flex flex-col items-center justify-center p-4 font-quantico relative">
+    <div className="min-h-screen bg-gray-900 text-gray-100 flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 font-quantico relative">
       <ScrollProgressIndicator />
       <AnimatedBackground />
-      <div className="max-w-3xl w-full relative z-10">
+      <div className="w-full max-w-4xl mx-auto relative z-10">
         <motion.header 
-          className="text-center mb-12 pt-10"
+          className="text-center mb-12 pt-8 sm:pt-16"
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
           <motion.div
-            className="mb-8 relative"
+            className="mb-6 sm:mb-8 relative"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
@@ -247,7 +244,7 @@ const App: React.FC = () => {
           </motion.div>
           
           <motion.h1 
-            className="text-4xl md:text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200"
+            className="text-3xl sm:text-4xl md:text-6xl font-bold mb-3 sm:mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200"
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -255,8 +252,8 @@ const App: React.FC = () => {
             Julius Salinas
           </motion.h1>
           
-          <motion.p 
-            className="text-lg md:text-xl text-gray-300 max-w-lg mx-auto"
+          <motion.p z
+            className="text-base sm:text-lg md:text-xl text-gray-300 max-w-lg mx-auto px-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
@@ -266,7 +263,7 @@ const App: React.FC = () => {
             </span> | AI/ML Enthusiast | Game Developer | Web & App Developer
           </motion.p>
           <motion.div 
-            className="mt-4 flex justify-center gap-4"
+            className="mt-4 flex flex-wrap justify-center gap-3 sm:gap-4 px-2"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.7 }}
@@ -296,12 +293,11 @@ const App: React.FC = () => {
             <motion.a
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
-              href={cvform}
-              download
-              className="flex items-center gap-2 text-gray-300 hover:text-green-400 bg-gray-800/50 backdrop-blur-sm px-4 py-2 rounded-lg border border-gray-700 hover:border-green-500/50 transition-all"
+              onClick={() => setIsModalOpen(true)}
+              className="flex items-center gap-2 text-gray-300 cursor-pointer hover:text-green-400 bg-gray-800/50 backdrop-blur-sm px-4 py-2 rounded-lg border border-gray-700 hover:border-green-500/50 transition-all"
             >
-              <FaDownload className="text-xl" />
-              Download CV
+              <FaEye className="text-xl" />
+              View Resume
             </motion.a>
           </motion.div>
         </motion.header>
@@ -377,15 +373,15 @@ const App: React.FC = () => {
             skillCategories.map((category, catIndex) => (
               <motion.div 
                 key={catIndex} 
-                className="mb-6 bg-gray-800 p-4 rounded-lg" 
+                className="mb-6 bg-gray-800/80 backdrop-blur-sm p-4 sm:p-6 rounded-lg border border-gray-700 hover:border-blue-500/30 transition-all" 
                 variants={fadeInUp}
               >
-                <h3 className="text-xl font-medium mb-3 text-gray-200">{category.category}</h3>
+                <h3 className="text-lg sm:text-xl font-medium mb-3 text-gray-200">{category.category}</h3>
                 <div className="flex flex-wrap gap-2">
                   {category.skills.map((skill, index) => (
                     <motion.span
                       key={`${catIndex}-${index}`}
-                      className="px-4 py-2 bg-gray-700 rounded-full text-sm md:text-base flex items-center gap-1.5 border border-transparent hover:border-blue-500/30"
+                      className="px-3 sm:px-4 py-1.5 sm:py-2 bg-gray-700/90 rounded-full text-xs sm:text-sm flex items-center gap-1.5 border border-transparent hover:border-blue-500/30"
                       variants={fadeInUp}
                       whileHover={{ 
                         scale: 1.05, 
@@ -435,11 +431,11 @@ const App: React.FC = () => {
               transition={{ duration: 0.5, delay: 0.3 }}
             />
           </motion.h2>
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-2">
             {projects.map((project, index) => (
               <motion.div
                 key={index}
-                className="group p-5 bg-gray-800 rounded-lg transition overflow-hidden border border-gray-700 hover:border-blue-500/30"
+                className="group p-4 sm:p-5 bg-gray-800/80 backdrop-blur-sm rounded-lg transition-all overflow-hidden border border-gray-700 hover:border-blue-500/30"
                 variants={fadeInUp}
                 whileHover={{ 
                   scale: 1.02, 
@@ -447,20 +443,20 @@ const App: React.FC = () => {
                   backgroundColor: "#2d3748"
                 }}
               >
-                <div className="mb-4 rounded-md overflow-hidden shadow-lg transform group-hover:scale-[1.01] transition-transform">
+                <div className="mb-3 sm:mb-4 rounded-md overflow-hidden shadow-lg transform group-hover:scale-[1.01] transition-transform">
                   <ProjectSlideshow 
                     image={project.image}
                     images={project.images}
                     name={project.name}
                   />
                 </div>
-                <h3 className="text-xl font-medium group-hover:text-blue-400 transition-colors">{project.name}</h3>
-                <p className="text-gray-400 mt-2 text-sm md:text-base">{project.description}</p>
-                <div className="flex flex-wrap gap-2 mt-3">
+                <h3 className="text-lg sm:text-xl font-medium group-hover:text-blue-400 transition-colors">{project.name}</h3>
+                <p className="text-gray-400 mt-1.5 sm:mt-2 text-sm">{project.description}</p>
+                <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-3">
                   {project.languages?.map((language, langIndex) => (
                     <motion.span
                       key={langIndex}
-                      className="flex items-center gap-1 px-3 py-1 bg-gray-700/70 backdrop-blur-sm rounded-full text-xs md:text-sm text-gray-300 border border-transparent hover:border-blue-500/30"
+                      className="flex items-center gap-1 px-2 sm:px-3 py-1 bg-gray-700/70 backdrop-blur-sm rounded-full text-xs text-gray-300 border border-transparent hover:border-blue-500/30"
                       whileHover={{ 
                         scale: 1.05, 
                         backgroundColor: "#374151",
@@ -472,7 +468,7 @@ const App: React.FC = () => {
                         damping: 10
                       }}
                     >
-                      {languageIcons[language] || <DiCode className="text-xs md:text-sm" />}
+                      {languageIcons[language] || <DiCode className="text-xs" />}
                       {language}
                     </motion.span>
                   ))}
@@ -483,7 +479,7 @@ const App: React.FC = () => {
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 mt-4 text-blue-400 hover:text-blue-300 transition-colors font-medium"
+                  className="inline-flex items-center gap-1 mt-3 sm:mt-4 text-blue-400 hover:text-blue-300 transition-colors text-sm sm:text-base font-medium"
                 >
                   View Project
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -520,7 +516,7 @@ const App: React.FC = () => {
               <motion.a
                 whileHover={{ scale: 1.1, y: -3 }}
                 whileTap={{ scale: 0.95 }}
-                href="https://linkedin.com/in/julius-louise-salinas"
+                href="https://linkedin.com/in/julius-salinas"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-blue-500 transition-colors"
@@ -546,6 +542,13 @@ const App: React.FC = () => {
             </motion.p>
           </motion.div>
         </motion.footer>
+
+        <PDFPreviewModal 
+          isOpen={isModalOpen} 
+          onClose={() => setIsModalOpen(false)} 
+          pdfUrl={cvform} 
+          fileName="Julius_Salinas_CV.pdf"
+        />
       </div>
     </div>
   )
