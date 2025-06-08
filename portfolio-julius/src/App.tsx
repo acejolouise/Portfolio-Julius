@@ -44,8 +44,10 @@ import structify5 from './assets/screenshot projects/structify5.png'
 
 const App: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(true); // Changed to true for default dark mode
-  const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [isDarkMode, setIsDarkMode] = useState(true);
+  
+  // Use a more generic type for the refs to avoid type errors
+  const sectionRefs = useRef<Array<HTMLElement | null>>([]);
   
   const skillCategories = [
     {
@@ -202,8 +204,21 @@ const App: React.FC = () => {
     visible: { opacity: 1, y: 0 }
   };
 
+  // Modify the scrollToSection function to safely handle the elements
   const scrollToSection = (index: number) => {
-    sectionRefs.current[index]?.scrollIntoView({ behavior: 'smooth' });
+    if (sectionRefs.current[index]) {
+      sectionRefs.current[index]?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  // Make sure to assign refs using a more robust approach
+  const assignRef = (index: number) => (el: HTMLElement | null) => {
+    // This ensures we're always setting the correct index in the refs array
+    if (sectionRefs.current.length <= index) {
+      // If the refs array isn't big enough yet, extend it
+      sectionRefs.current = [...sectionRefs.current, ...Array(index + 1 - sectionRefs.current.length).fill(null)];
+    }
+    sectionRefs.current[index] = el;
   };
 
   return (
@@ -216,7 +231,7 @@ const App: React.FC = () => {
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          ref={el => sectionRefs.current[0] = el}
+          ref={assignRef(0)}
         >
           <motion.div
             className="mb-6 sm:mb-8 relative"
@@ -327,8 +342,8 @@ const App: React.FC = () => {
               }
             }
           }}
-          ref={el => sectionRefs.current[1] = el}
-        >
+          ref={assignRef(1)}
+          >
           <motion.h2 
             className="text-2xl md:text-3xl font-semibold mb-4 text-center relative inline-block"
             variants={fadeInUp}
@@ -367,7 +382,7 @@ const App: React.FC = () => {
               }
             }
           }}
-          ref={el => sectionRefs.current[2] = el}
+          ref={assignRef(2)}
         >
           <motion.h2 
             className="text-2xl md:text-3xl font-semibold mb-4 relative inline-block"
@@ -430,7 +445,7 @@ const App: React.FC = () => {
               }
             }
           }}
-          ref={el => sectionRefs.current[3] = el}
+          ref={assignRef(3)}
         >
           <motion.h2 
             className="text-2xl md:text-3xl font-semibold mb-4 relative inline-block"
@@ -522,7 +537,7 @@ const App: React.FC = () => {
               }
             }
           }}
-          ref={el => sectionRefs.current[4] = el}
+          ref={assignRef(4)}
         >
           <motion.h2 
             className="text-2xl md:text-3xl font-semibold mb-4 relative inline-block"

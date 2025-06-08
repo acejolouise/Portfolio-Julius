@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
 interface ContactFormProps {
-  isDarkMode?: boolean; // Add prop to accept dark mode state
+  isDarkMode?: boolean;
 }
 
 const ContactForm: React.FC<ContactFormProps> = ({ isDarkMode = true }) => {
@@ -32,27 +32,35 @@ const ContactForm: React.FC<ContactFormProps> = ({ isDarkMode = true }) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission with setTimeout
-    setTimeout(() => {
+    try {
+      // Simulate form submission with setTimeout
+      setTimeout(() => {
+        setIsSubmitting(false);
+        setSubmitStatus({
+          success: true,
+          message: 'Message sent successfully! I will get back to you soon.',
+        });
+        
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: '',
+        });
+        
+        // Clear success message after 5 seconds
+        setTimeout(() => {
+          setSubmitStatus(null);
+        }, 5000);
+      }, 1500);
+    } catch (error) {
       setIsSubmitting(false);
       setSubmitStatus({
-        success: true,
-        message: 'Message sent successfully! I will get back to you soon.',
+        success: false,
+        message: 'Failed to send message. Please try again later.',
       });
-      
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
-      });
-      
-      // Clear success message after 5 seconds
-      setTimeout(() => {
-        setSubmitStatus(null);
-      }, 5000);
-    }, 1500);
+    }
   };
 
   return (
@@ -159,8 +167,8 @@ const ContactForm: React.FC<ContactFormProps> = ({ isDarkMode = true }) => {
         <motion.button
           type="submit"
           disabled={isSubmitting}
-          whileHover={{ scale: 1.03 }}
-          whileTap={{ scale: 0.97 }}
+          whileHover={{ scale: isSubmitting ? 1 : 1.03 }}
+          whileTap={{ scale: isSubmitting ? 1 : 0.97 }}
           className="w-full py-3 px-5 text-sm font-medium text-center text-white bg-gradient-to-r from-blue-600 to-blue-500 rounded-lg hover:from-blue-500 hover:to-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-900 disabled:opacity-70 disabled:cursor-not-allowed"
         >
           {isSubmitting ? (

@@ -14,6 +14,7 @@ const ProjectSlideshow: React.FC<ProjectSlideshowProps> = ({ image, images, name
   const slideImages = images && images.length > 0 ? images : [image];
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
+  const [direction, setDirection] = useState(0);
 
   const goToPrevious = () => {
     const isFirstSlide = currentIndex === 0;
@@ -48,8 +49,6 @@ const ProjectSlideshow: React.FC<ProjectSlideshowProps> = ({ image, images, name
     }
   };
 
-  const [direction, setDirection] = useState(0);
-
   const paginate = (newDirection: number) => {
     setDirection(newDirection);
     if (newDirection > 0) {
@@ -59,7 +58,7 @@ const ProjectSlideshow: React.FC<ProjectSlideshowProps> = ({ image, images, name
     }
   };
 
-  return (    
+  return (
     <div 
       className="relative w-full h-40 md:h-56 rounded-md overflow-hidden group cursor-pointer"
       onMouseEnter={() => setIsHovering(true)}
@@ -86,7 +85,8 @@ const ProjectSlideshow: React.FC<ProjectSlideshowProps> = ({ image, images, name
             loading="lazy"
           />
         </motion.div>
-      </div>      
+      </div>
+      
       {slideImages.length > 1 && (
         <motion.div 
           className="absolute inset-0 flex items-center justify-between p-2"
@@ -95,7 +95,10 @@ const ProjectSlideshow: React.FC<ProjectSlideshowProps> = ({ image, images, name
           transition={{ duration: 0.3 }}
         >
           <motion.button 
-            onClick={() => paginate(-1)}
+            onClick={(e) => {
+              e.stopPropagation();
+              paginate(-1);
+            }}
             className={`w-9 h-9 flex items-center justify-center ${isDarkMode ? 'bg-black bg-opacity-60' : 'bg-gray-800 bg-opacity-70'} text-white rounded-full hover:bg-opacity-80 transition-all shadow-lg backdrop-blur-sm`}
             whileHover={{ scale: 1.2, backgroundColor: isDarkMode ? "rgba(0,0,0,0.8)" : "rgba(31,41,55,0.9)" }}
             whileTap={{ scale: 0.9 }}
@@ -106,7 +109,10 @@ const ProjectSlideshow: React.FC<ProjectSlideshowProps> = ({ image, images, name
             <FaChevronLeft />
           </motion.button>
           <motion.button 
-            onClick={() => paginate(1)}
+            onClick={(e) => {
+              e.stopPropagation();
+              paginate(1);
+            }}
             className={`w-9 h-9 flex items-center justify-center ${isDarkMode ? 'bg-black bg-opacity-60' : 'bg-gray-800 bg-opacity-70'} text-white rounded-full hover:bg-opacity-80 transition-all shadow-lg backdrop-blur-sm`}
             whileHover={{ scale: 1.2, backgroundColor: isDarkMode ? "rgba(0,0,0,0.8)" : "rgba(31,41,55,0.9)" }}
             whileTap={{ scale: 0.9 }}
@@ -119,8 +125,7 @@ const ProjectSlideshow: React.FC<ProjectSlideshowProps> = ({ image, images, name
         </motion.div>
       )}   
 
-
-      {/* Project name overlay - keeping text white for contrast over images regardless of mode */}
+      {/* Project name overlay - keeping text white for contrast over images */}
       <motion.div 
         className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t ${isDarkMode ? 'from-black/70' : 'from-gray-800/70'} to-transparent p-3 pt-8 text-xs font-medium text-white opacity-70 group-hover:opacity-100 transition-opacity`}
         initial={{ opacity: 0, y: 10 }}
@@ -136,7 +141,10 @@ const ProjectSlideshow: React.FC<ProjectSlideshowProps> = ({ image, images, name
           {slideImages.map((_, index) => (
             <motion.button
               key={index}
-              onClick={() => setCurrentIndex(index)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setCurrentIndex(index);
+              }}
               className={`w-2.5 h-2.5 rounded-full transition-all ${
                 currentIndex === index ? 'bg-white shadow-[0_0_5px_rgba(255,255,255,0.7)]' : 'bg-gray-400 bg-opacity-50'
               }`}
