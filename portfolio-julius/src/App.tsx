@@ -6,7 +6,7 @@ import { DiJavascript1, DiReact, DiDotnet, DiJava, DiPython, DiCode, DiPhp, DiHt
 import ProjectSlideshow from './component/ProjectSlideshow'
 import ScrollProgressIndicator from './component/ScrollProgressIndicator'
 import PDFPreviewModal from './component/PDFPreviewModal'
-import cvform from './assets/CV_Julius_Salinas.pdf'
+import cvform from './assets/CV_JULIUS_SALINAS.pdf'
 import { motion } from 'framer-motion'
 import Tilt from 'react-parallax-tilt'
 import AnimatedBackground from './component/AnimatedBackground'
@@ -516,7 +516,7 @@ const App: React.FC = () => {
               <motion.a
                 whileHover={{ scale: 1.1, y: -3 }}
                 whileTap={{ scale: 0.95 }}
-                href="https://linkedin.com/in/julius-salinas"
+                href="https://linkedin.com/in/julius-louise-salinas"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-blue-500 transition-colors"
