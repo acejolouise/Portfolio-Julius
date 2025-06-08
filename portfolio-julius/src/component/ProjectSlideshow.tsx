@@ -6,9 +6,10 @@ interface ProjectSlideshowProps {
   image: string;
   images?: string[];
   name: string;
+  isDarkMode?: boolean;
 }
 
-const ProjectSlideshow: React.FC<ProjectSlideshowProps> = ({ image, images, name }) => {
+const ProjectSlideshow: React.FC<ProjectSlideshowProps> = ({ image, images, name, isDarkMode = true }) => {
   // Use multiple images if available, otherwise use the single image
   const slideImages = images && images.length > 0 ? images : [image];
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -58,9 +59,9 @@ const ProjectSlideshow: React.FC<ProjectSlideshowProps> = ({ image, images, name
     }
   };
 
-  return (
+  return (    
     <div 
-      className="relative w-full h-40 md:h-48 rounded-md overflow-hidden group"
+      className="relative w-full h-40 md:h-56 rounded-md overflow-hidden group cursor-pointer"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
@@ -85,7 +86,8 @@ const ProjectSlideshow: React.FC<ProjectSlideshowProps> = ({ image, images, name
             loading="lazy"
           />
         </motion.div>
-      </div>      {slideImages.length > 1 && (
+      </div>      
+      {slideImages.length > 1 && (
         <motion.div 
           className="absolute inset-0 flex items-center justify-between p-2"
           initial={{ opacity: 0 }}
@@ -94,8 +96,8 @@ const ProjectSlideshow: React.FC<ProjectSlideshowProps> = ({ image, images, name
         >
           <motion.button 
             onClick={() => paginate(-1)}
-            className="w-9 h-9 flex items-center justify-center bg-black bg-opacity-60 text-white rounded-full hover:bg-opacity-80 transition-all shadow-lg backdrop-blur-sm"
-            whileHover={{ scale: 1.2, backgroundColor: "rgba(0,0,0,0.8)" }}
+            className={`w-9 h-9 flex items-center justify-center ${isDarkMode ? 'bg-black bg-opacity-60' : 'bg-gray-800 bg-opacity-70'} text-white rounded-full hover:bg-opacity-80 transition-all shadow-lg backdrop-blur-sm`}
+            whileHover={{ scale: 1.2, backgroundColor: isDarkMode ? "rgba(0,0,0,0.8)" : "rgba(31,41,55,0.9)" }}
             whileTap={{ scale: 0.9 }}
             initial={{ x: -5, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
@@ -105,8 +107,8 @@ const ProjectSlideshow: React.FC<ProjectSlideshowProps> = ({ image, images, name
           </motion.button>
           <motion.button 
             onClick={() => paginate(1)}
-            className="w-9 h-9 flex items-center justify-center bg-black bg-opacity-60 text-white rounded-full hover:bg-opacity-80 transition-all shadow-lg backdrop-blur-sm"
-            whileHover={{ scale: 1.2, backgroundColor: "rgba(0,0,0,0.8)" }}
+            className={`w-9 h-9 flex items-center justify-center ${isDarkMode ? 'bg-black bg-opacity-60' : 'bg-gray-800 bg-opacity-70'} text-white rounded-full hover:bg-opacity-80 transition-all shadow-lg backdrop-blur-sm`}
+            whileHover={{ scale: 1.2, backgroundColor: isDarkMode ? "rgba(0,0,0,0.8)" : "rgba(31,41,55,0.9)" }}
             whileTap={{ scale: 0.9 }}
             initial={{ x: 5, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
@@ -115,11 +117,12 @@ const ProjectSlideshow: React.FC<ProjectSlideshowProps> = ({ image, images, name
             <FaChevronRight />
           </motion.button>
         </motion.div>
-      )}
+      )}   
 
-      {/* Project name overlay */}
+
+      {/* Project name overlay - keeping text white for contrast over images regardless of mode */}
       <motion.div 
-        className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-3 pt-8 text-xs font-medium text-white opacity-0 group-hover:opacity-100 transition-opacity"
+        className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t ${isDarkMode ? 'from-black/70' : 'from-gray-800/70'} to-transparent p-3 pt-8 text-xs font-medium text-white opacity-70 group-hover:opacity-100 transition-opacity`}
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: isHovering ? 1 : 0, y: isHovering ? 0 : 10 }}
         transition={{ duration: 0.3 }}

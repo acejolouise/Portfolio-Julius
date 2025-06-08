@@ -36,12 +36,11 @@ const PDFPreviewModal: React.FC<PDFPreviewModalProps> = ({ isOpen, onClose, pdfU
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-        >
-          <motion.div
+        >          <motion.div
             className="bg-gray-800 rounded-lg overflow-hidden w-full max-w-4xl flex flex-col border border-gray-700 shadow-xl"
-            initial={{ scale: 0.9, y: 20 }}
-            animate={{ scale: 1, y: 0 }}
-            exit={{ scale: 0.9, y: 20 }}
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
           >
             <div className="flex justify-between items-center p-4 border-b border-gray-700">
@@ -64,8 +63,15 @@ const PDFPreviewModal: React.FC<PDFPreviewModalProps> = ({ isOpen, onClose, pdfU
                   <FaTimes size={20} />
                 </motion.button>
               </div>
-            </div>
-            <div className="relative flex-grow bg-gray-900 h-[70vh]">
+            </div>            <div className="relative flex-grow bg-gray-900 h-[70vh]">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 }}
+                className="w-full h-full absolute flex items-center justify-center"
+              >
+                <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+              </motion.div>
               <iframe
                 src={`${pdfUrl}#toolbar=0&navpanes=0`}
                 className="absolute w-full h-full"

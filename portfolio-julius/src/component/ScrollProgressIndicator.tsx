@@ -31,10 +31,9 @@ const ScrollProgressIndicator: React.FC = () => {
         style={{ scaleX: scrollYProgress }}
       />
       
-      {/* Scroll to top button */}
-      <motion.button
+      {/* Scroll to top button */}      <motion.button
         onClick={scrollToTop}
-        className="fixed bottom-8 right-8 z-50 w-12 h-12 rounded-full bg-gray-800 text-white flex items-center justify-center shadow-lg border border-gray-700"
+        className="fixed bottom-24 right-6 z-50 w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg border border-blue-500"
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ 
           opacity: showScrollToTop ? 1 : 0,
@@ -42,7 +41,7 @@ const ScrollProgressIndicator: React.FC = () => {
           y: showScrollToTop ? 0 : 20
         }}
         transition={{ duration: 0.3 }}
-        whileHover={{ scale: 1.1, backgroundColor: "#374151" }}
+        whileHover={{ scale: 1.1, backgroundColor: "#2563eb" }}
         whileTap={{ scale: 0.9 }}
         aria-label="Scroll to top"
       >

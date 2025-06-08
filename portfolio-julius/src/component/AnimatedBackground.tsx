@@ -11,25 +11,27 @@ interface Particle {
 
 const AnimatedBackground: React.FC = () => {
   const [particles, setParticles] = useState<Particle[]>([]);
-  
-  useEffect(() => {
-    // Generate random particles with improved color palette
+    useEffect(() => {
+    // Generate random particles with enhanced color palette
     const colors = [
       'rgba(30, 64, 175, 0.6)',  // Deep blue with transparency
       'rgba(59, 130, 246, 0.6)', // Medium blue with transparency
       'rgba(96, 165, 250, 0.5)', // Light blue with transparency
       'rgba(147, 197, 253, 0.4)', // Very light blue with transparency
       'rgba(219, 234, 254, 0.3)', // Subtle blue with transparency
+      'rgba(8, 145, 178, 0.5)',   // Cyan with transparency
+      'rgba(6, 182, 212, 0.4)',   // Light cyan with transparency
+      'rgba(14, 116, 144, 0.5)',  // Dark cyan with transparency
     ];
     const newParticles: Particle[] = [];
     
-    // Create more particles for a fuller effect
-    for (let i = 0; i < 70; i++) {
+    // Create more particles for a richer visual effect
+    for (let i = 0; i < 90; i++) {
       newParticles.push({
         id: i,
         x: Math.random() * 100,
         y: Math.random() * 100,
-        size: Math.random() * 10 + 1, // More variety in sizes
+        size: Math.random() * 12 + 1, // More variety in sizes
         color: colors[Math.floor(Math.random() * colors.length)],
       });
     }
@@ -64,13 +66,12 @@ const AnimatedBackground: React.FC = () => {
             ],
             scale: [0, 1, 1, 0],
             opacity: [0, 0.8, 0.8, 0]
-          }}
-          transition={{
+          }}          transition={{
             repeat: Infinity,
             repeatType: "loop",
-            duration: Math.random() * 30 + 20,
+            duration: Math.random() * 40 + 25, // Longer, more varied durations
             ease: "easeInOut",
-            delay: Math.random() * 5
+            delay: Math.random() * 8 // More varied delays
           }}
           style={{
             width: `${particle.size}px`,
